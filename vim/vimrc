@@ -1,43 +1,53 @@
 " ~/.vimrc
-" My vimrc file
+" My Vim Configuration File
 " Author: Indrajit Ghosh
 " Created On: Dec 17, 2024
 "
-" This file contains personal configurations for Vim to enhance the editing experience.
+" This file contains personal configurations for Vim to enhance the editing experience,
+" including basic settings, plugin management, key mappings, and environment setup.
 
-" Basic config settings
-" ------------------------------------------------------
-set nocompatible        " Use vim and not vi
-filetype plugin on      " Load file-specific plugins
-filetype indent on      " Load file-specific indentation
+" ----------------------------------------------------------------------------
+" Auto-Download Vim-Plug (plugin manager)
+" ----------------------------------------------------------------------------
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" ----------------------------------------------------------------------------
+" Basic Vim Configuration
+" ----------------------------------------------------------------------------
+set nocompatible        " Use Vim and not vi (legacy compatibility mode)
+filetype plugin on      " Enable file-specific plugins
+filetype indent on      " Enable file-specific indentation
 filetype on             " Enable file type detection
-set encoding=utf-8
+set encoding=utf-8      " Set file encoding to UTF-8
 set wrap linebreak      " Wrap long lines and break lines at words
 set tabstop=4           " Display existing tabs as 4 spaces wide
-set shiftwidth=4        " When indenting with '>', use 4 spaces
+set shiftwidth=4        " Use 4 spaces for indentation with '>'
 set expandtab           " Use spaces instead of tab characters when pressing Tab
 set number              " Display absolute line numbers
-set cursorline          " Highlight current line
+set cursorline          " Highlight the current line
 set relativenumber      " Display relative line numbers
 set ruler               " Show current line and column number in the status line
 set showcmd             " Show partially typed commands
 set nohlsearch          " Don't highlight search results
-set noincsearch         " Don't jump to search results as search string is being typed
+set noincsearch         " Don't jump to search results as search string is typed
 set nofoldenable        " Don't fold text by default when opening files
-set autowriteall        " Write current buffer when moving buffers
+set autowriteall        " Automatically write current buffer when switching buffers
 syntax enable           " Enable syntax highlighting
 
-" The following two line takes care of the bug ']4em' char at the beginning of
-" the vim
+" Fix for bug related to '[4em]' char at the beginning of Vim
 set keyprotocol=
 let &term=&term
 
-
+" Leader key configuration (used for custom mappings)
 let mapleader = " "
-" -------------------------------------------------------------------------
 
-" OS detection
-" ---------------------------------------------
+" ----------------------------------------------------------------------------
+" OS Detection and Configuration
+" ----------------------------------------------------------------------------
 if !exists("g:os_current")
   if system('uname -s') == "Linux\n"
     let g:os_current = "Linux"
@@ -48,71 +58,63 @@ if !exists("g:os_current")
     let g:os_current = "Other"
   endif
 endif
-" ---------------------------------------------
 
-" Set Python provider
-" ---------------------------------------------
+" ----------------------------------------------------------------------------
+" Python Provider Setup
+" ----------------------------------------------------------------------------
 if g:os_current == "Linux"
   let g:python3_host_prog = '/usr/bin/python3'
 elseif g:os_current == "Darwin"
   let g:python3_host_prog = '/usr/local/bin/python3'
-else
 endif
-" ---------------------------------------------
 
-
-" Vim Plugins
-" ----------------------------------------------------------------------
-" These plugins are managed by vim-plug. Below are the plugins being used.
-
+" ----------------------------------------------------------------------------
+" Plugin Management with vim-plug
+" ----------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/vim-plug'
-Plug 'SirVer/ultisnips'
-" Vim Colors for a clean and modern look (Xcode-inspired theme)
-Plug 'arzg/vim-colors-xcode'
-Plug 'morhetz/gruvbox'
-Plug 'lervag/vimtex'
+" Plugin declarations
+Plug 'junegunn/vim-plug'          " vim-plug plugin manager
+Plug 'SirVer/ultisnips'           " Snippet engine for Vim
+Plug 'arzg/vim-colors-xcode'      " Xcode-inspired color scheme
+Plug 'morhetz/gruvbox'            " Gruvbox color scheme
+Plug 'lervag/vimtex'              " LaTeX support for Vim
 
 call plug#end()
 
-" ------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
+" Insert Mode Mappings
+" ----------------------------------------------------------------------------
+noremap <leader>b :bnext<CR>      " Use <leader>b to move to the next buffer
 
+" ----------------------------------------------------------------------------
+" UltiSnips Plugin Configuration
+" ----------------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger       = '<Tab>'    " Use Tab to expand snippets
+let g:UltiSnipsJumpForwardTrigger  = '<Tab>'    " Use Tab to move forward through tabstops
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'  " Use Shift-Tab to move backward through tabstops
+let g:UltiSnipsSnippetDirectories  = [$HOME.'/.vim/UltiSnips']  " Set UltiSnips directories
 
-"------------------------------------------
-" Insert Mode mappings
-" -----------------------------------------
-noremap <leader>b :bnext<CR>        " Use <leader>b to move to the next Vim buffer
+" ----------------------------------------------------------------------------
+" Colorscheme Configuration
+" ----------------------------------------------------------------------------
+colorscheme gruvbox " Set the default color scheme to 'gruvbox'
+set background=dark  " Set the background to dark mode
 
+" ----------------------------------------------------------------------------
+" Miscellaneous Key Mappings
+" ----------------------------------------------------------------------------
+noremap <leader>s :source ~/.vimrc<CR>     " Use <leader>s to source the .vimrc
+nnoremap <leader>w :w<CR>                      " Use <leader>w to save the current file
+noremap <leader>y "+y          " Copy the selected text to the system clipboard using <leader>y
+noremap <leader>Y ggVG"+y      " Yank the entire file to the system clipboard using <leader>Y
+noremap <leader>p "+p          " Paste the contents of the system clipboard at the cursor position
+noremap <leader>P "+P          " Paste the contents of the system clipboard before the cursor position
 
-" Begin Plugin Config
-" --------------------------------------
-" The following lines sets up things for ultisnips
-let g:UltiSnipsExpandTrigger       = '<Tab>'    " use Tab to expand snippets
-let g:UltiSnipsJumpForwardTrigger  = '<Tab>'    " use Tab to move forward through tabstops
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'  " use Shift-Tab to move backward through tabstops
+" ----------------------------------------------------------------------------
+" LaTeX Key Mappings (using vimtex)
+" ----------------------------------------------------------------------------
+noremap <leader>c :write<CR>:VimtexCompile<CR>   " Use <leader>c to save and compile the current LaTeX document
 
-" Use `~/.vim/UltiSnips/` as snippet directories
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
-
-" Colorscheme Settings:
-" Choose the color scheme you prefer. Options include:
-" 'xcode', 'xcodehc', 'xcodedark', 'xcodedarkhc', 'xcodewwdc'
-colorscheme gruvbox " Set the default colorscheme to 'xcodedarkhc'
-set background=dark
-
-" End Plugin Config
-" -----------------------------------------------------------
-
-" Begin Miscellaneous
-" ---------------------------------------------
-nnoremap <leader>w :w<CR>  " Easier write command
-
-
-" ----------------------------------------
-"       LaTeX related mappings
-" ----------------------------------------
-noremap <leader>c :write<CR>:VimtexCompile<CR>      " Use <leader>c to save and comile the current document
-
-" End Miscellaneous
-" ------------------------------------------------
+" End of Vim Configuration
+" ----------------------------------------------------------------------------

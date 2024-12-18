@@ -26,6 +26,13 @@ set noincsearch         " Don't jump to search results as search string is being
 set nofoldenable        " Don't fold text by default when opening files
 set autowriteall        " Write current buffer when moving buffers
 syntax enable           " Enable syntax highlighting
+
+" The following two line takes care of the bug ']4em' char at the beginning of
+" the vim
+set keyprotocol=
+let &term=&term
+
+
 let mapleader = " "
 " -------------------------------------------------------------------------
 

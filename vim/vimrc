@@ -1,0 +1,111 @@
+" ~/.vimrc
+" My vimrc file
+" Author: Indrajit Ghosh
+" Created On: Dec 17, 2024
+"
+" This file contains personal configurations for Vim to enhance the editing experience.
+
+" Basic config settings
+" ------------------------------------------------------
+set nocompatible        " Use vim and not vi
+filetype plugin on      " Load file-specific plugins
+filetype indent on      " Load file-specific indentation
+filetype on             " Enable file type detection
+set encoding=utf-8
+set wrap linebreak      " Wrap long lines and break lines at words
+set tabstop=4           " Display existing tabs as 4 spaces wide
+set shiftwidth=4        " When indenting with '>', use 4 spaces
+set expandtab           " Use spaces instead of tab characters when pressing Tab
+set number              " Display absolute line numbers
+set cursorline          " Highlight current line
+set relativenumber      " Display relative line numbers
+set ruler               " Show current line and column number in the status line
+set showcmd             " Show partially typed commands
+set nohlsearch          " Don't highlight search results
+set noincsearch         " Don't jump to search results as search string is being typed
+set nofoldenable        " Don't fold text by default when opening files
+set autowriteall        " Write current buffer when moving buffers
+syntax enable           " Enable syntax highlighting
+let mapleader = " "
+" -------------------------------------------------------------------------
+
+" OS detection
+" ---------------------------------------------
+if !exists("g:os_current")
+  if system('uname -s') == "Linux\n"
+    let g:os_current = "Linux"
+  elseif system('uname -s') == "Darwin\n"
+    let g:os_current = "Darwin"
+  else
+    echom "Error: the current operating system won't support all of my Vim configurations."
+    let g:os_current = "Other"
+  endif
+endif
+" ---------------------------------------------
+
+" Set Python provider
+" ---------------------------------------------
+if g:os_current == "Linux"
+  let g:python3_host_prog = '/usr/bin/python3'
+elseif g:os_current == "Darwin"
+  let g:python3_host_prog = '/usr/local/bin/python3'
+else
+endif
+" ---------------------------------------------
+
+
+" Vim Plugins
+" ----------------------------------------------------------------------
+" These plugins are managed by vim-plug. Below are the plugins being used.
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/vim-plug'
+Plug 'SirVer/ultisnips'
+" Vim Colors for a clean and modern look (Xcode-inspired theme)
+Plug 'arzg/vim-colors-xcode'
+Plug 'morhetz/gruvbox'
+Plug 'lervag/vimtex'
+
+call plug#end()
+
+" ------------------------------------------------------------------------------
+
+
+"------------------------------------------
+" Insert Mode mappings
+" -----------------------------------------
+noremap <leader>b :bnext<CR>        " Use <leader>b to move to the next Vim buffer
+
+
+" Begin Plugin Config
+" --------------------------------------
+" The following lines sets up things for ultisnips
+let g:UltiSnipsExpandTrigger       = '<Tab>'    " use Tab to expand snippets
+let g:UltiSnipsJumpForwardTrigger  = '<Tab>'    " use Tab to move forward through tabstops
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'  " use Shift-Tab to move backward through tabstops
+
+" Use `~/.vim/UltiSnips/` as snippet directories
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+
+" Colorscheme Settings:
+" Choose the color scheme you prefer. Options include:
+" 'xcode', 'xcodehc', 'xcodedark', 'xcodedarkhc', 'xcodewwdc'
+colorscheme gruvbox " Set the default colorscheme to 'xcodedarkhc'
+set background=dark
+
+" End Plugin Config
+" -----------------------------------------------------------
+
+" Begin Miscellaneous
+" ---------------------------------------------
+nnoremap <leader>w :w<CR>  " Easier write command
+
+
+" ----------------------------------------
+"       LaTeX related mappings
+" ----------------------------------------
+noremap <leader>c :write<CR>:VimtexCompile<CR>      " Use <leader>c to save and comile the current document
+
+" End Miscellaneous
+" ------------------------------------------------

@@ -28,6 +28,13 @@ alias venv="source ./env/bin/activate"
 # List all wifi networks
 alias wifi-list='nmcli device wifi list'
 
+# List block devices with their name, size, filesystem type, and mount point
+alias lsb="lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT"
+# Unmount a device (requires sudo) - This allows you to safely disconnect or eject devices
+alias um="sudo umount /dev/sda1"
+# Power off a specific disk (in this case, /dev/sda) - Use this to turn off the disk without physically removing it
+alias po="udisksctl power-off -b /dev/sda1"
+
 # Download and extract audio from YouTube videos
 alias extract-video='yt-dlp -S res:1080 --sponsorblock-remove all'
 alias extract-audio='yt-dlp -S res:240 --extract-audio --sponsorblock-remove all'

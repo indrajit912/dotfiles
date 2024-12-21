@@ -28,6 +28,10 @@ alias venv="source ./env/bin/activate"
 # List all wifi networks
 alias wifi-list='nmcli device wifi list'
 
+# Download and extract audio from YouTube videos
+alias extract-video='yt-dlp -S res:1080 --sponsorblock-remove all'
+alias extract-audio='yt-dlp -S res:240 --extract-audio --sponsorblock-remove all'
+
 # Some Git alias
 alias gg="git status"
 alias gga="git add"

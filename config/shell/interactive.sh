@@ -37,7 +37,7 @@ alias po="udisksctl power-off -b /dev/sda1"
 
 # Download and extract audio from YouTube videos
 alias extract-video='yt-dlp -S res:1080 --sponsorblock-remove all'
-alias extract-audio='yt-dlp -S res:240 --extract-audio --sponsorblock-remove all'
+alias extract-audio="yt-dlp -f bestaudio --continue --ignore-errors --verbose --embed-thumbnail --extract-audio --audio-quality 0 --audio-format mp3 --embed-metadata --sponsorblock-remove all"
 
 # Some Git alias
 alias gg="git status"

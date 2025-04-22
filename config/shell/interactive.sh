@@ -25,6 +25,9 @@ rgrep() {
 # Activate Python virtual environment
 alias venv="source ./env/bin/activate"
 
+# Short SHA256 hash (12 chars) for a given string
+alias hash12='function _h() { echo -n "$1" | sha256sum | cut -c1-12; }; _h'
+
 # List all wifi networks
 alias wifi-list='nmcli device wifi list'
 

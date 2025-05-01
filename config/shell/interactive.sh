@@ -31,12 +31,12 @@ alias hash12='function _h() { echo -n "$1" | sha256sum | cut -c1-12; }; _h'
 # List all wifi networks
 alias wifi-list='nmcli device wifi list'
 
-# List block devices with their name, size, filesystem type, and mount point
-alias lsb="lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT"
-# Unmount a device (requires sudo) - This allows you to safely disconnect or eject devices
-alias um="sudo umount /dev/sda1"
-# Power off a specific disk (in this case, /dev/sda) - Use this to turn off the disk without physically removing it
-alias po="udisksctl power-off -b /dev/sda1"
+# Show all block devices in a neat format with
+alias lsusb="lsblk -o NAME,PATH,SIZE,RM,FSAVAIL,MOUNTPOINT"
+# Shortcut for unmounting a device (requires sudo)
+alias um="sudo umount"
+# Safely power off (eject) a block device after unmounting
+alias po="udisksctl power-off -b"
 
 # Download and extract audio from YouTube videos
 alias extract-video='yt-dlp -S res:1080 --sponsorblock-remove all'

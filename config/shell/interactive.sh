@@ -46,6 +46,7 @@ alias extract-audio="yt-dlp -f bestaudio --continue --ignore-errors --verbose --
 alias gg="git status"
 alias gga="git add"
 alias ggc="git commit"
+alias ggcs="git commit -S" # git commit with GPG sign
 alias ggp="git push"
 alias ggpl="git pull"
 alias ggplm="git pull origin master"

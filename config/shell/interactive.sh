@@ -38,6 +38,8 @@ alias um="sudo umount"
 # Safely power off (eject) a block device after unmounting
 alias po="udisksctl power-off -b"
 
+alias dusort='du -hs /tmp ~/.[!.]* ~/* | sort -h'  # Show human-readable disk usage summary
+
 # Download and extract audio from YouTube videos
 alias extract-video='yt-dlp -S res:1080 --sponsorblock-remove all'
 alias extract-audio="yt-dlp -f bestaudio --continue --ignore-errors --verbose --embed-thumbnail --extract-audio --audio-quality 0 --audio-format mp3 --embed-metadata --sponsorblock-remove all"

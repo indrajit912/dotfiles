@@ -85,8 +85,8 @@ call plug#end()
 " ----------------------------------------------------------------------------
 " Insert Mode Mappings
 " ----------------------------------------------------------------------------
-noremap <leader>b :bnext<CR>      " Use <leader>b to move to the next buffer
-
+ " Use <leader>b to move to the next buffer
+noremap <leader>b :bnext<CR>     
 " ----------------------------------------------------------------------------
 " UltiSnips Plugin Configuration
 " ----------------------------------------------------------------------------
@@ -104,17 +104,31 @@ set background=dark  " Set the background to dark mode
 " ----------------------------------------------------------------------------
 " Miscellaneous Key Mappings
 " ----------------------------------------------------------------------------
-noremap <leader>s :source ~/.vimrc<CR>     " Use <leader>s to source the .vimrc
-nnoremap <leader>w :w<CR>                      " Use <leader>w to save the current file
-noremap <leader>y "+y          " Copy the selected text to the system clipboard using <leader>y
-noremap <leader>Y ggVG"+y      " Yank the entire file to the system clipboard using <leader>Y
-noremap <leader>p "+p          " Paste the contents of the system clipboard at the cursor position
-noremap <leader>P "+P          " Paste the contents of the system clipboard before the cursor position
+" Use <leader>s to source the .vimrc
+noremap <leader>s :source ~/.vimrc<CR>
+
+" Use <leader>w to save the current file
+nnoremap <leader>w :w<CR>
+
+" Copy the selected text to the system clipboard using <leader>y
+noremap <leader>y "+y
+
+" Yank the entire file to the system clipboard using <leader>Y
+noremap <leader>Y ggVG"+y
+
+" Paste the contents of the system clipboard at the cursor position
+noremap <leader>p "+p
+
+" Paste the contents of the system clipboard before the cursor position
+noremap <leader>P "+P
 
 " ----------------------------------------------------------------------------
 " LaTeX Key Mappings (using vimtex)
 " ----------------------------------------------------------------------------
-noremap <leader>c :write<CR>:VimtexCompile<CR>   " Use <leader>c to save and compile the current LaTeX document
+
+" Use <leader>c to save and compile the current LaTeX document
+noremap <leader>c :write<CR>:VimtexCompile<CR>
 
 " End of Vim Configuration
 " ----------------------------------------------------------------------------
+
